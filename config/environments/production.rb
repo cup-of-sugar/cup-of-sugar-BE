@@ -105,5 +105,5 @@ Rails.application.configure do
 
 
   # Heroku app configuration
-  config.allowed_cors_origins = [“https://fierce-tundra-54482.herokuapp.com”]
+  config.allowed_cors_origins = ["https://fierce-tundra-54482.herokuapp.com"]
 end
