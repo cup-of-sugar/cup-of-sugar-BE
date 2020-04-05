@@ -6,6 +6,6 @@ RSpec.describe Category, type: :model do
   end
 
   describe 'relationship' do
-    it { should have_many :items }
+    it { should have_many(:items).dependent(:destroy) }
   end
 end
