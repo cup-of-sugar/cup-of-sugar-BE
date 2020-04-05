@@ -100,10 +100,10 @@ Rails.application.configure do
   # strategy for connection switching and pass that into the middleware through
   # these configuration options.
   # config.active_record.database_selector = { delay: 2.seconds }
-  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  # config.active_record.database_resolv  er = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
 
   # Heroku app configuration
-  config.allowed_cors_origins = [“https://fierce-tundra-54482.herokuapp.com”]
+  config.allowed_cors_origins = ["https://fierce-tundra-54482.herokuapp.com”]
 end
