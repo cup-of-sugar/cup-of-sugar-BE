@@ -1,0 +1,7 @@
+services:
+  - postgresql
+language: ruby
+rbenv:
+  - 2.5.1
+script:
+  - bundle exec rails db:reset db:setup db:migrate RAILS_ENV=test
