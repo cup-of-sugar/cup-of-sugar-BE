@@ -3,9 +3,10 @@ module Types
     field :id, ID, null: false
     field :name, String, null: false
     field :quantity, Float, null: false
-    field :status, Boolean, null: false
+    field :available, Boolean, null: false
     field :description, String, null: true
     field :measurement, String, null: true
-    field :category [Type::CategoryType], null: false
+    field :time_duration, String, null: true
+    field :category, Types::CategoryType, null: false
   end
 end
