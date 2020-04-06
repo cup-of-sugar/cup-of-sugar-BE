@@ -8,5 +8,6 @@ module Types
     field :measurement, String, null: true
     field :time_duration, String, null: true
     field :category, Types::CategoryType, null: false
+    field :returnable, Boolean, null: false
   end
 end
