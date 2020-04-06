@@ -15,12 +15,13 @@ module Types
       Category.all
     end
 
-    field :get_all_category_items, [Types::ItemType], null: false, description: "Returns all category items" do
-      argument :id, ID, required: true
+    field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all category items" do
+      argument :name, String, required: true
+      argument :items, String, required: true
     end
 
-    def get_all_category_items(id:)
-      Category.find(id).items
+    def get_all_items_by_name(name:, items:)
+      Category.find_by(name: name).items.where(name: items)
     end
 
   end
