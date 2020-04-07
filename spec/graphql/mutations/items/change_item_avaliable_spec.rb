@@ -9,15 +9,14 @@ module Mutations
           @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: true)
 
           post "/graphql", params: { query: query }
-<<<<<<< HEAD
+
           result = JSON.parse(response.body, symbolize_names: true)
 
           expect(result[:data][:item][:id]).to eq(@food.id.to_s)
           expect(result[:data][:item][:available]).to eq(false)
           expect(result[:data][:item][:name]).to eq(@food.name)
-=======
+
           result = JSON.parse(response.body)
->>>>>>> 93d9815cd3c9b10cb36aa366cc60d095d7b80594
         end
       end
 
