@@ -7,6 +7,7 @@ module Types
     field :description, String, null: true
     field :measurement, String, null: true
     field :time_duration, String, null: true
+    field :returnable, Boolean, null: false
     field :category, Types::CategoryType, null: false
   end
 end
