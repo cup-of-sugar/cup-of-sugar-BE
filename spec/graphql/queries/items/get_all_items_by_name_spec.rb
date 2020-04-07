@@ -32,6 +32,12 @@ RSpec.describe Types::QueryType do
       expect(category_items[0]["timeDuration"]).to eq('hours')
       expect(category_items[0]["available"]).to eq(true)
     end
+
+    it "can fail gracefully if no item is found" do
+      lawn = Category.create(name: 'Lawn Care')
+      result = CupOfSugarBeSchema.execute(query1).as_json
+      expect(result["data"]["getAllItemsByName"]).to eq([])
+    end
   end
 
   def query
