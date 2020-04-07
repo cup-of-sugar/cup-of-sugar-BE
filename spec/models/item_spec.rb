@@ -5,6 +5,7 @@ RSpec.describe Item, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :quantity }
     it { should validate_presence_of :available }
+    it { should validate_presence_of :returnable }
   end
 
   describe 'relationship' do
