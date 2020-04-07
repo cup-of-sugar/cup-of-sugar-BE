@@ -19,8 +19,16 @@ other = Category.create(name: 'Other')
 food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false )
 food.items.create(name: 'milk', quantity: 1, measurement: "gallon", available: true, returnable: false )
 food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: true, returnable: false )
+<<<<<<< HEAD
 home.items.create(name: 'cordless drill', quantity: 1, time_duration: 'hours', available: true)
 cleaning.items.create(name: 'mop', quantity: 1, time_duration: 'day', available: true)
 gardening.items.create(name: 'trowel', quantity: 3, time_duration: 'weeks', available: true)
 gardening.items.create(name: 'gloves', quantity: 5, time_duration: 'days', available: true, description: 'Ever since my friend OJ borrowed these gloves, I have been missing just one.')
 clothing.items.create(name: 'jacket', quantity: 4, time_duration: 'days', available: true)
+=======
+home.items.create(name: 'cordless drill', quantity: 1, time_duration: 'hours', available: true, returnable: true)
+cleaning.items.create(name: 'mop', quantity: 1, time_duration: 'day', available: true, returnable: true)
+gardening.items.create(name: 'trowel', quantity: 3, time_duration: 'weeks', available: true, returnable: true)
+gardening.items.create(name: 'gloves', quantity: 5, time_duration: 'days', available: true, returnable: true, description: 'Ever since my friend OJ borrowed these gloves, I have been missing just one.')
+clothing.items.create(name: 'jacket', quantity: 4, time_duration: 'days', available: true, returnable: true)
+>>>>>>> 188b5c6b1ebf23106d1c26f4a383a19c0183fb97
