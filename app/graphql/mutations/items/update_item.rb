@@ -9,11 +9,11 @@ module Mutations
       field :id, ID, null: false
       field :available, Boolean, null: false
       field :name, String, null: false
-    
+
 
       def resolve(params)
         item = Item.find(params[:id])
-        item.available = !item.available
+        item.update(available: !item.available)
         item
       end
     end
