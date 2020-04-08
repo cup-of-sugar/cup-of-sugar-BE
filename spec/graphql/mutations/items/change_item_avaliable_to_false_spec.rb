@@ -3,8 +3,8 @@ require 'rails_helper'
 module Mutations
   module Items
     RSpec.describe UpdateItem, type: :request do
-      describe 'update item availability' do
-        it 'can change with mutation request' do
+      describe 'update item availability to false' do
+        it 'can change to false with mutation request' do
           food = Category.create(name: 'Food', id: 15)
           @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: true)
 
@@ -17,6 +17,9 @@ module Mutations
           expect(result[:data][:item][:name]).to eq(@food.name)
 
           result = JSON.parse(response.body)
+          @food.reload
+
+          expect(@food.available).to eq(false)
         end
       end
 
