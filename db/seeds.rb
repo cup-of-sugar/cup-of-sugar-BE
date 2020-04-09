@@ -16,7 +16,7 @@ gardening = Category.create(name: 'Gardening')
 clothing = Category.create(name: 'Clothing')
 other = Category.create(name: 'Other')
 
-food.items.create(name: 'luckycharms', quantity: 1, measurement: 'box', available: true, returnable: true)
+food.items.create(name: 'lucky charms', quantity: 1, measurement: 'box', available: true, returnable: true)
 food.items.create(name: 'eggs', quantity: 1, measurement: 'dozen', available: true, returnable: false)
 food.items.create(name: 'eggs', quantity: 1, time_duration: 'dozen', available: true, returnable: false)
 food.items.create(name: 'eggs', quantity: 1, time_duration: 'dozen', available: true, returnable: true)
