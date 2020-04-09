@@ -26,7 +26,7 @@ RSpec.describe Types::QueryType do
 
   def query
     <<~GQL
-    {
+    query {
       getAllCategories{
         name
       }
