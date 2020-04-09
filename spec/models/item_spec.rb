@@ -6,7 +6,8 @@ RSpec.describe Item, type: :model do
     it { should validate_presence_of :quantity }
   end
 
-  describe 'relationship' do
+  describe 'relationships' do
     it { should belong_to :category }
+    it { should have_many :postings }
   end
 end
