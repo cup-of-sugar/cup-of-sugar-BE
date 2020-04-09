@@ -23,6 +23,5 @@ module Types
     def get_all_items_by_name(name:, items:)
       Category.find_by(name: name).items.where(name: items)
     end
-
   end
 end
