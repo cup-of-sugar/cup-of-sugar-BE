@@ -15,6 +15,15 @@ module Types
       Category.all
     end
 
+    field :get_all_items_in_category, [Types::ItemType], null: false, description: "Returns all items associated with a specific category" do
+      argument :name, String, required: true
+    end
+
+    def get_all_items_in_category(name:)
+      # require "pry"; binding.pry
+      Category.find_by(name: name).items
+    end
+
     field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all category items" do
       argument :name, String, required: true
       argument :items, String, required: true
