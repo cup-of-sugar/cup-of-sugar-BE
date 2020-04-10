@@ -19,6 +19,7 @@ other = Category.create(name: 'Other')
 food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false )
 food.items.create(name: 'milk', quantity: 1, measurement: "gallon", available: true, returnable: false)
 food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: true, returnable: false )
+food.items.create(name: 'eggs', quantity: 1, description: "Can I offer you a nice egg during this trying time?", measurement: "dozen", available: true)
 
 home.items.create(name: 'cordless drill', quantity: 1, time_duration: 'hours', available: true, returnable: true)
 
