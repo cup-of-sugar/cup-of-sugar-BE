@@ -5,7 +5,8 @@ RSpec.describe Types::QueryType do
     it 'can query an item by name associated with a category' do
       lawn = Category.create(name: 'Lawn Care')
       cats = Category.create(name: 'Cats', id: 15)
-      cats.items.create(name: 'Ralph', quantity: 8, measurement: "oz", available: true)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+      cats.items.create(name: 'Ralph', quantity: 8, measurement: "oz", available: true, user_id: user.id)
 
       result = CupOfSugarBeSchema.execute(query).as_json
 
@@ -20,7 +21,8 @@ RSpec.describe Types::QueryType do
 
     it 'can query a different category and item' do
       lawn = Category.create(name: 'Lawn Care')
-      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true, user_id: user.id)
 
       result = CupOfSugarBeSchema.execute(query1).as_json
 

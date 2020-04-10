@@ -15,17 +15,17 @@ cleaning = Category.create(name: 'Cleaning')
 gardening = Category.create(name: 'Gardening')
 clothing = Category.create(name: 'Clothing')
 other = Category.create(name: 'Other')
+user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
-food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false )
-food.items.create(name: 'milk', quantity: 1, measurement: "gallon", available: true, returnable: false)
-food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: true, returnable: false )
-food.items.create(name: 'eggs', quantity: 1, description: "Can I offer you a nice egg during this trying time?", measurement: "dozen", available: true)
+food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false, user_id: user.id )
+food.items.create(name: 'milk', quantity: 1, measurement: "gallon", available: true, returnable: false, user_id: user.id)
+food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: true, returnable: false, user_id: user.id )
 
-home.items.create(name: 'cordless drill', quantity: 1, time_duration: 'hours', available: true, returnable: true)
+home.items.create(name: 'cordless drill', quantity: 1, time_duration: 'hours', available: true, returnable: true, user_id: user.id)
 
-cleaning.items.create(name: 'mop', quantity: 1, time_duration: 'day', available: true, returnable: true)
+cleaning.items.create(name: 'mop', quantity: 1, time_duration: 'day', available: true, returnable: true, user_id: user.id)
 
-gardening.items.create(name: 'trowel', quantity: 3, time_duration: 'weeks', available: true, returnable: true)
-gardening.items.create(name: 'gloves', quantity: 5, time_duration: 'days', available: true, returnable: true, description: 'Ever since my friend OJ borrowed these gloves, I have been missing just one.')
+gardening.items.create(name: 'trowel', quantity: 3, time_duration: 'weeks', available: true, returnable: true, user_id: user.id)
+gardening.items.create(name: 'gloves', quantity: 5, time_duration: 'days', available: true, returnable: true, description: 'Ever since my friend OJ borrowed these gloves, I have been missing just one.', user_id: user.id)
 
-clothing.items.create(name: 'jacket', quantity: 4, time_duration: 'days', available: true, returnable: true)
+clothing.items.create(name: 'jacket', quantity: 4, time_duration: 'days', available: true, returnable: true, user_id: user.id)

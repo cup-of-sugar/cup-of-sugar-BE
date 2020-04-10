@@ -5,11 +5,12 @@ RSpec.describe Types::QueryType do
     it 'can query all items' do
       cats = Category.create(name: 'Cats')
       lawn = Category.create(name: 'Lawn Care')
-      cats.items.create(name: 'Ralph', quantity: 8, measurement: "oz", available: true)
-      cats.items.create(name: 'Sean', quantity: 1, measurement: "oz", description: "this cat is the worst but I love him.", time_duration: "days", available: true)
-      cats.items.create(name: 'Rhonda', quantity: 4, measurement: "lbs", time_duration: "months", available: true)
-      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true)
-      lawn.items.create(name: 'Fertilizer', quantity: 1, measurement: "oz", time_duration: 'days', available: true )
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+      cats.items.create(name: 'Ralph', quantity: 8, measurement: "oz", available: true, user_id: user.id)
+      cats.items.create(name: 'Sean', quantity: 1, measurement: "oz", description: "this cat is the worst but I love him.", time_duration: "days", available: true, user_id: user.id)
+      cats.items.create(name: 'Rhonda', quantity: 4, measurement: "lbs", time_duration: "months", available: true, user_id: user.id)
+      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true, user_id: user.id)
+      lawn.items.create(name: 'Fertilizer', quantity: 1, measurement: "oz", time_duration: 'days', available: true, user_id: user.id )
 
       result = CupOfSugarBeSchema.execute(query).as_json
 

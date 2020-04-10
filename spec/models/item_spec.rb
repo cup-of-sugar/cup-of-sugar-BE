@@ -9,5 +9,6 @@ RSpec.describe Item, type: :model do
   describe 'relationships' do
     it { should belong_to :category }
     it { should have_many :postings }
+    it { should belong_to :user }
   end
 end
