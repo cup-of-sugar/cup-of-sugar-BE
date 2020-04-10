@@ -1,9 +1,6 @@
 ## Summary of functionality
 
 
-## Returnable field added to item_type
-
-
 ## Testing status
 Coverage: 
 
