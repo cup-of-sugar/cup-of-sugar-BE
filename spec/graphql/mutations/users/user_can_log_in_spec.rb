@@ -32,12 +32,12 @@ module Mutations
       end
 
       describe 'user login path' do
-        it 'when credentials are incorrect' do
+        it 'when password credentials are incorrect' do
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
           post "/graphql", params: { query: query1 }
           result = JSON.parse(response.body, symbolize_names: true)
-          
+
           expect(result[:data][:user][:email]).to eq(nil)
         end
       end
@@ -48,6 +48,60 @@ module Mutations
           user: userLogin(
             input: {
               email: "carole@tigers.com"
+              password: "pass"
+            }
+          )
+          {
+            email
+          }
+        }
+        GQL
+      end
+
+      describe 'user login path' do
+        it 'when email credentials are incorrect' do
+          user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+
+          post "/graphql", params: { query: query2 }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:user][:email]).to eq(nil)
+        end
+      end
+
+      def query2
+        <<~GQL
+        mutation {
+          user: userLogin(
+            input: {
+              email: "carole@tigers"
+              password: "password"
+            }
+          )
+          {
+            email
+          }
+        }
+        GQL
+      end
+
+      describe 'user login path' do
+        it 'when email credentials are incorrect' do
+          user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+
+          post "/graphql", params: { query: query3 }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:user][:email]).to eq(nil)
+        end
+      end
+
+      def query3
+        <<~GQL
+        mutation {
+          user: userLogin(
+            input: {
+              email: "carole@tigers"
               password: "pass"
             }
           )

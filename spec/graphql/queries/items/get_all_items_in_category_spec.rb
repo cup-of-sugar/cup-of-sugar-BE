@@ -4,12 +4,14 @@ RSpec.describe Types::QueryType do
   describe 'display all items associated with a category' do
     it 'can query an items associated with a category by category name' do
       cats = Category.create(name: 'Cats')
-      cats.items.create(name: 'Ralph', quantity: 8, time_duration: "months", available: true)
-      cats.items.create(name: 'Vlad', quantity: 2, time_duration: "weeks", available: true)
-      cats.items.create(name: 'George', quantity: 1, time_duration: "day", available: true)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+
+      cats.items.create(name: 'Ralph', quantity: 8, time_duration: "months", available: true, user_id: user.id)
+      cats.items.create(name: 'Vlad', quantity: 2, time_duration: "weeks", available: true, user_id: user.id)
+      cats.items.create(name: 'George', quantity: 1, time_duration: "day", available: true, user_id: user.id)
       food = Category.create(name: 'Food')
-      food.items.create(name: 'Egg', quantity: 1, description: "Can I offer you a nice egg during this trying time?", measurement: "shelled embryo", available: true)
-      food.items.create(name: 'Cheese', quantity: 4, measurement: "cups", available: true)
+      food.items.create(name: 'Egg', quantity: 1, description: "Can I offer you a nice egg during this trying time?", measurement: "shelled embryo", available: true, user_id: user.id)
+      food.items.create(name: 'Cheese', quantity: 4, measurement: "cups", available: true, user_id: user.id)
 
       result = CupOfSugarBeSchema.execute(query).as_json
 
@@ -24,8 +26,10 @@ RSpec.describe Types::QueryType do
 
     it 'can query a different category and items' do
       lawn = Category.create(name: 'Lawn Care')
-      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true)
-      lawn.items.create(name: 'Sprinkler', quantity: 2.0, time_duration: 'days', available: true)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+      
+      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true, user_id: user.id)
+      lawn.items.create(name: 'Sprinkler', quantity: 2.0, time_duration: 'days', available: true, user_id: user.id)
 
       result = CupOfSugarBeSchema.execute(query_2).as_json
 
