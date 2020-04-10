@@ -4,12 +4,12 @@ RSpec.describe Types::QueryType do
   describe 'display all items associated with a category' do
     it 'can query an items associated with a category by category name' do
       cats = Category.create(name: 'Cats')
-      ralph = cats.items.create(name: 'Ralph', quantity: 8, time_duration: "months", available: true)
-      vlad = cats.items.create(name: 'Vlad', quantity: 2, time_duration: "weeks", available: true)
-      george = cats.items.create(name: 'George', quantity: 1, time_duration: "day", available: true)
+      cats.items.create(name: 'Ralph', quantity: 8, time_duration: "months", available: true)
+      cats.items.create(name: 'Vlad', quantity: 2, time_duration: "weeks", available: true)
+      cats.items.create(name: 'George', quantity: 1, time_duration: "day", available: true)
       food = Category.create(name: 'Food')
-      egg = food.items.create(name: 'Egg', quantity: 1, description: "Can I offer you a nice egg during this trying time?", measurement: "shelled embryo", available: true)
-      cheese = food.items.create(name: 'Cheese', quantity: 4, measurement: "cups", available: true)
+      food.items.create(name: 'Egg', quantity: 1, description: "Can I offer you a nice egg during this trying time?", measurement: "shelled embryo", available: true)
+      food.items.create(name: 'Cheese', quantity: 4, measurement: "cups", available: true)
 
       result = CupOfSugarBeSchema.execute(query).as_json
 
@@ -42,12 +42,12 @@ RSpec.describe Types::QueryType do
       expect(category_items[1]["timeDuration"]).to eq('days')
       expect(category_items[1]["available"]).to eq(true)
     end
-    #
-    # it "can fail gracefully if no item is found" do
-    #   lawn = Category.create(name: 'Lawn Care')
-    #   result = CupOfSugarBeSchema.execute(query1).as_json
-    #   expect(result["data"]["getAllItemsByName"]).to eq([])
-    # end
+
+    it "can fail gracefully if no item matching the lawn care category is found" do
+      Category.create(name: 'Lawn Care')
+      result = CupOfSugarBeSchema.execute(query_2).as_json
+      expect(result["data"]["getAllItemsInCategory"]).to eq([])
+    end
   end
 
   def query
