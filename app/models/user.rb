@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   def self.verify_login(params)
     user = User.find_by(email: params[:email])
-    user.authenticate(params[:password])
+    if user
+      user.authenticate(params[:password])
+    else
+      false
+    end
   end
 end
