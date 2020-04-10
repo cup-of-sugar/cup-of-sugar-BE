@@ -20,7 +20,6 @@ module Types
     end
 
     def get_all_items_in_category(name:)
-      # require "pry"; binding.pry
       Category.find_by(name: name).items
     end
 
