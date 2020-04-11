@@ -25,10 +25,11 @@ module Mutations
         category = Category.find_by(name: params[:category_name])
 
         if category.name == 'Food'
-          category.items.create(name: params[:name], description: params[:description], quantity: params[:quantity], measurement: params[:measurement], returnable: false)
+          category.items.create(name: params[:name], description: params[:description], quantity: params[:quantity], measurement: params[:measurement], returnable: false, posting_id: posting.id)
         else
-          category.items.create(name: params[:name], description: params[:description], quantity: params[:quantity], time_duration: params[:time_duration])
+          category.items.create(name: params[:name], description: params[:description], quantity: params[:quantity], time_duration: params[:time_duration], posting_id: posting.id)
         end
+        # item availability needs to be solved in case of someone making a post to borrow an item
         Item.last
       end
     end
