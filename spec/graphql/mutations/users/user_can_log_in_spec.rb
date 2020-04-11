@@ -11,7 +11,8 @@ module Mutations
           result = JSON.parse(response.body, symbolize_names: true)
 
           expect(result[:data][:user][:email]).to eq("carole@tigers.com")
-          expect(result[:data][:user].count).to eq(1)
+          expect(result[:data][:user][:id]).to eq(user.id.to_s)
+          expect(result[:data][:user].count).to eq(2)
         end
       end
 
@@ -25,6 +26,7 @@ module Mutations
             }
           )
           {
+            id
             email
           }
         }

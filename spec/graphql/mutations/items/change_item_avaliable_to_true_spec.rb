@@ -7,7 +7,7 @@ module Mutations
         it 'can change to false with mutation request' do
           food = Category.create(name: 'Food', id: 15)
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
-          @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: false, user_id: user.id)
+          @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: false)
 
           post "/graphql", params: { query: query }
 
