@@ -6,7 +6,7 @@ module Mutations
       describe 'create a posting' do
         it 'for item to borrow in any other category' do
           @gardening = Category.create(name: 'Gardening')
-          user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+          @user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
           expect(Posting.count).to eq(0)
           post "/graphql", params: { query: query }
@@ -32,6 +32,7 @@ module Mutations
           mutation {
             posting: createPosting(
               input: {
+                userId: #{@user.id}
                 title: "Looking to lend"
                 postingType: "lend"
                 categoryName: "#{@gardening.name}"

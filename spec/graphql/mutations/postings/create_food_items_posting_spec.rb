@@ -10,7 +10,6 @@ module Mutations
 
         expect(Posting.count).to eq(0)
         post "/graphql", params: { query: query }
-        
         expect(Posting.count).to eq(1)
 
         result = JSON.parse(response.body, symbolize_names: true)
@@ -34,6 +33,8 @@ module Mutations
             posting: createPosting(
               input: {
                 userId: #{@user.id}
+                postingType: "borrow"
+                title: "Passing a title"
                 categoryName: "#{@food.name}"
                 name: "Butter"
                 description: "It's butter."
