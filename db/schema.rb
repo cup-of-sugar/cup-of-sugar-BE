@@ -32,17 +32,18 @@ ActiveRecord::Schema.define(version: 2020_04_11_224759) do
     t.string "measurement"
     t.string "time_duration"
     t.boolean "returnable", default: true
+    t.bigint "posting_id", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["posting_id"], name: "index_items_on_posting_id"
   end
 
   create_table "postings", force: :cascade do |t|
-    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "posting_type"
+    t.string "title"
     t.integer "poster_id"
     t.integer "responder_id"
-    t.index ["item_id"], name: "index_postings_on_item_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,5 +55,5 @@ ActiveRecord::Schema.define(version: 2020_04_11_224759) do
   end
 
   add_foreign_key "items", "categories"
-  add_foreign_key "postings", "items"
+  add_foreign_key "items", "postings"
 end
