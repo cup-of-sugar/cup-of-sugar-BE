@@ -24,12 +24,12 @@ module Types
     end
 
     field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all category items" do
-      argument :name, String, required: true
-      argument :items, String, required: true
+      argument :item_name, String, required: true
     end
 
-    def get_all_items_by_name(name:, items:)
-      Category.find_by(name: name).items.where(name: items)
+    def get_all_items_by_name(item_name:)
+      posting_ids = Posting.where(posting_type: 1).ids
+      items = Item.where(name: item_name).where(posting_id: posting_ids)
     end
   end
 end
