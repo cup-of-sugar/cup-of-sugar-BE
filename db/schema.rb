@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_011547) do
+ActiveRecord::Schema.define(version: 2020_04_11_224759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,15 +32,16 @@ ActiveRecord::Schema.define(version: 2020_04_10_011547) do
     t.string "measurement"
     t.string "time_duration"
     t.boolean "returnable", default: true
-    t.bigint "user_id", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
-    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "postings", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "posting_type"
+    t.integer "poster_id"
+    t.integer "responder_id"
     t.index ["item_id"], name: "index_postings_on_item_id"
   end
 
@@ -53,6 +54,5 @@ ActiveRecord::Schema.define(version: 2020_04_10_011547) do
   end
 
   add_foreign_key "items", "categories"
-  add_foreign_key "items", "users"
   add_foreign_key "postings", "items"
 end
