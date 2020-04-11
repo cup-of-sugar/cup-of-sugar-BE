@@ -10,7 +10,7 @@ module Mutations
 
         expect(Posting.count).to eq(0)
         post "/graphql", params: { query: query }
-        # require "pry"; binding.pry
+        
         expect(Posting.count).to eq(1)
 
         result = JSON.parse(response.body, symbolize_names: true)
@@ -20,6 +20,11 @@ module Mutations
         expect(posting[:description]). to eq("It's butter.")
         expect(posting[:quantity]). to eq(8.0)
         expect(posting[:measurement]). to eq("oz")
+
+        post = Posting.last
+        post.reload
+
+        expect(post.posting_type).to eq("borrow")
         end
       end
 

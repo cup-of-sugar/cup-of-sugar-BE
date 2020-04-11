@@ -19,6 +19,11 @@ module Mutations
           expect(posting[:description]). to eq("What are even?")
           expect(posting[:quantity]). to eq(4.0)
           expect(posting[:timeDuration]). to eq("days")
+
+          post = Posting.last
+          post.reload
+
+          expect(post.posting_type).to eq("lend")
         end
       end
 
@@ -27,6 +32,8 @@ module Mutations
           mutation {
             posting: createPosting(
               input: {
+                title: "Looking to lend"
+                postingType: "lend"
                 categoryName: "#{@gardening.name}"
                 name: "trowel"
                 description: "What are even?"

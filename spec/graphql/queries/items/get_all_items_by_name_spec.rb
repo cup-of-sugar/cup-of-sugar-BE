@@ -6,7 +6,9 @@ RSpec.describe Types::QueryType do
       lawn = Category.create(name: 'Lawn Care')
       cats = Category.create(name: 'Cats', id: 15)
       user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
-      cats.items.create(name: 'Ralph', quantity: 8, measurement: "oz", available: true)
+      posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user.id)
+
+      cats.items.create(name: 'Ralph', quantity: 8, measurement: "oz", available: true, posting_id: posting.id)
 
       result = CupOfSugarBeSchema.execute(query).as_json
 
@@ -21,8 +23,10 @@ RSpec.describe Types::QueryType do
 
     it 'can query a different category and item' do
       lawn = Category.create(name: 'Lawn Care')
-    
-      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+      posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user.id)
+
+      lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true, posting_id: posting.id)
 
       result = CupOfSugarBeSchema.execute(query1).as_json
 
@@ -45,7 +49,7 @@ RSpec.describe Types::QueryType do
   def query
     <<~GQL
     query {
-      getAllItemsByName(name: "Cats",  items: "Ralph") {
+      getAllItemsByName(itemName: "Ralph") {
         name
         quantity
         timeDuration
@@ -58,7 +62,7 @@ RSpec.describe Types::QueryType do
   def query1
     <<~GQL
     query {
-      getAllItemsByName(name: "Lawn Care",  items: "Mower") {
+      getAllItemsByName(itemName: "Mower") {
         name
         quantity
         timeDuration
