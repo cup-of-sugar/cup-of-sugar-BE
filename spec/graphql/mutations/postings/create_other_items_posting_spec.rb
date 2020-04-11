@@ -32,6 +32,7 @@ module Mutations
           mutation {
             posting: createPosting(
               input: {
+                title: "Looking to lend"
                 postingType: "lend"
                 categoryName: "#{@gardening.name}"
                 name: "trowel"

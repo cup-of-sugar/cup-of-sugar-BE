@@ -6,7 +6,7 @@ RSpec.describe Posting, type: :model do
   end
 
   describe 'relationships' do
-    it { should belong_to :item }
+    it { should have_many :items }
   end
 
   describe 'types' do
@@ -14,7 +14,7 @@ RSpec.describe Posting, type: :model do
       user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
       food = Category.create(name: 'Food')
       item = food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false, user_id: user.id)
-      posting = Posting.create(item_id: item.id, posting_type: 0)
+      posting = Posting.create(posting_type: 0, title: "looking for spare items")
 
       expect(posting.posting_type).to eq('borrow')
     end
@@ -23,7 +23,7 @@ RSpec.describe Posting, type: :model do
       user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
       food = Category.create(name: 'Food')
       item = food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false, user_id: user.id)
-      posting = Posting.create(item_id: item.id, posting_type: 1)
+      posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage")
 
       expect(posting.posting_type).to eq('lend')
     end
