@@ -5,6 +5,7 @@ module Mutations
       argument :password, String, required: true
 
       field :email, String, null: true
+      field :id, ID, null: false
 
       def resolve(params)
         user = User.verify_login(params)
