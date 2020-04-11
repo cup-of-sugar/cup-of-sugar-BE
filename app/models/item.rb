@@ -3,6 +3,5 @@ class Item < ApplicationRecord
 
   belongs_to :category
   belongs_to :user
-  # has_many :postings
   belongs_to :posting
 end
