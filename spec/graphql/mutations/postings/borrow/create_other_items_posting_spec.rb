@@ -20,10 +20,13 @@ module Mutations
           expect(posting[:quantity]). to eq(4.0)
           expect(posting[:timeDuration]). to eq("days")
 
-          post = Posting.last
+          item = Item.last
+          post = item.posting
           post.reload
 
-          expect(post.posting_type).to eq("lend")
+          expect(post.posting_type).to eq("borrow")
+          expect(item.available).to eq(false)
+          expect(item.returnable).to eq(true)
         end
       end
 
@@ -33,8 +36,8 @@ module Mutations
             posting: createPosting(
               input: {
                 userId: #{@user.id}
-                title: "Looking to lend"
-                postingType: "lend"
+                title: "Looking to borrow"
+                postingType: "borrow"
                 categoryName: "#{@gardening.name}"
                 name: "trowel"
                 description: "What are even?"

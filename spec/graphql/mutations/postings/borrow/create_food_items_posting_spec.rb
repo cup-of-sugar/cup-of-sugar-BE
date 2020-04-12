@@ -20,10 +20,13 @@ module Mutations
         expect(posting[:quantity]). to eq(8.0)
         expect(posting[:measurement]). to eq("oz")
 
-        post = Posting.last
+        item = Item.last
+        post = item.posting
         post.reload
 
         expect(post.posting_type).to eq("borrow")
+        expect(item.available).to eq(false)
+        expect(item.returnable).to eq(false)
         end
       end
 
@@ -34,7 +37,7 @@ module Mutations
               input: {
                 userId: #{@user.id}
                 postingType: "borrow"
-                title: "Passing a title"
+                title: "Looking to borrow"
                 categoryName: "#{@food.name}"
                 name: "Butter"
                 description: "It's butter."
