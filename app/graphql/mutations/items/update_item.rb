@@ -13,6 +13,7 @@ module Mutations
 
       def resolve(params)
         item = Item.find(params[:id])
+
         if item.posting.posting_type == "lend"
           if item.posting.responder_id.to_s == params[:user_id] && item.available == false
             # responder_id is equal to borrower
@@ -20,11 +21,14 @@ module Mutations
           else
             item.update(available: !item.available)
             item.posting.update(responder_id: params[:user_id])
-
             # do we care about overwriting responder_ids each time because if we do, we can't save a history of how many people have borrowed this same item.
           end
         else
-          if item.posting.poster_id == params[:user_id]
+          if item.posting.poster_id.to_s == params[:user_id] && item.available == false
+            item.update(available: !item.available)
+          else
+            item.posting.update(responder_id: params[:user_id])
+            # require "pry"; binding.pry
           end
         end
         item
