@@ -6,10 +6,10 @@ module Mutations
       describe 'update item availability to false' do
         it 'can change to false with mutation request' do
           food = Category.create(name: 'Food', id: 15)
-          user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
-          posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage")
+          @user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+          posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: @user.id)
 
-          @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: false, user_id: user.id, posting_id: posting.id)
+          @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: false, posting_id: posting.id)
 
           post "/graphql", params: { query: query }
 
@@ -32,6 +32,7 @@ module Mutations
           item: updateItemAvailability(
             input: {
               id: "#{@food.id}"
+              userId: #{@user.id}
               available: true
               name: "#{@food.name}"
             }

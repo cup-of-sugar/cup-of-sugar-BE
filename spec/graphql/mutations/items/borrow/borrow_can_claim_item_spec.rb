@@ -3,12 +3,15 @@ require 'rails_helper'
 module Mutations
   module Items
     RSpec.describe UpdateItem, type: :request do
-      describe 'update item availability to false' do
-        it 'can change to false with mutation request' do
+      describe 'borrower can claim an item' do
+        it 'which can change availability to false with mutation request' do
           food = Category.create(name: 'Food', id: 15)
-          user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
-          posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage")
-          @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: true, user_id: user.id, posting_id: posting.id)
+          poster = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+          @responder = User.create(first_name: 'Joe', last_name: 'Exotic', email: 'joe4president@gmail.com', password: 'password', zip: 80204)
+
+          posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: poster.id)
+
+          @food = food.items.create(name: 'Butter', quantity: 8, measurement: "oz", available: true, posting_id: posting.id)
 
           post "/graphql", params: { query: query }
 
@@ -22,6 +25,8 @@ module Mutations
           @food.reload
 
           expect(@food.available).to eq(false)
+          expect(@food.posting.responder_id).to eq(@responder.id)
+          expect(@food.posting.poster_id).to eq(poster.id)
         end
       end
 
@@ -31,6 +36,7 @@ module Mutations
           item: updateItemAvailability(
             input: {
               id: "#{@food.id}"
+              userId: #{@responder.id}
               available: false
               name: "#{@food.name}"
             }
