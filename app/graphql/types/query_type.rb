@@ -49,5 +49,23 @@ module Types
       ids = Posting.where(responder_id: user_id).ids
       Item.where(posting_id: ids)
     end
+
+    field :get_all_user_borrow_postings, [Types::ItemType], null: false, description: "Returns all borrow postings associated with a user" do
+      argument :user_id, ID, required: true
+    end
+
+    def get_all_user_borrow_postings(user_id:)
+      ids = Posting.where(poster_id: user_id).ids
+      Item.where(posting_id: ids)
+    end
+
+    field :get_borrow_posting_where_user_responder, [Types::ItemType], null: false, description: "Returns all lend postings where borrow is responder" do
+      argument :user_id, ID, required: true
+    end
+
+    def get_borrow_posting_where_user_responder(user_id:)
+      ids = Posting.where(responder_id: user_id).ids
+      Item.where(posting_id: ids)
+    end
   end
 end
