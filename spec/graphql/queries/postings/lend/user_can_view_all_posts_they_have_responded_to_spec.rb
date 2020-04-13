@@ -18,7 +18,7 @@ RSpec.describe Types::QueryType do
 
       result = CupOfSugarBeSchema.execute(query).as_json
 
-      postings = result["data"]["getLendPostingWhereUserResponder"]
+      postings = result["data"]["itemsUserHasLent"]
 
 
       expect(postings.count).to eq(3)
@@ -37,7 +37,7 @@ RSpec.describe Types::QueryType do
   def query
     <<~GQL
     query {
-      getLendPostingWhereUserResponder(userId: "#{@user.id}") {
+      itemsUserHasLent(userId: "#{@user.id}") {
         name
         quantity
         available
