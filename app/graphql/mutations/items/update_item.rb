@@ -18,28 +18,29 @@ module Mutations
         else
           update_borrow_posting(item, params[:user_id])
         end
-        item
       end
 
       private
 
         def update_lend_posting(item, user_id)
+          return unless item.posting.poster_id.to_s != user_id
           if item.posting.responder_id.to_s == user_id && item.available == false
-            # responder_id is equal to borrower
             item.update(available: !item.available)
           else
             item.update(available: !item.available)
             item.posting.update(responder_id: user_id)
-            # do we care about overwriting responder_ids each time because if we do, we can't save a history of how many people have borrowed this same item
           end
+          item
         end
 
         def update_borrow_posting(item, user_id)
           if item.posting.poster_id.to_s == user_id && item.available == false
             item.update(available: !item.available)
           else
+            return unless item.posting.poster_id.to_s != user_id
             item.posting.update(responder_id: user_id)
           end
+          item
         end
     end
   end

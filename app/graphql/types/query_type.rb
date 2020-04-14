@@ -41,7 +41,7 @@ module Types
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_lent, [Types::ItemType], null: false, description: "Returns all lend postings where lender is responder" do
+    field :items_user_has_lent, [Types::ItemType], null: false, description: "Returns all lend postings where lender has responded to borrow request" do
       argument :user_id, ID, required: true
     end
 
@@ -59,7 +59,16 @@ module Types
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all lend postings where borrow is responder" do
+    field :items_user_requested_to_borrow, [Types::ItemType], null: false, description: "Returns all borrow postings where lender has not responded to borrow posting" do
+      argument :user_id, ID, required: true
+    end
+
+    def items_user_requested_to_borrow(user_id:)
+      ids = Posting.where(responder_id: nil).where(poster_id: user_id).ids
+      Item.where(posting_id: ids)
+    end
+
+    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all borrow postings where lender has responded to borrower" do
       argument :user_id, ID, required: true
     end
 

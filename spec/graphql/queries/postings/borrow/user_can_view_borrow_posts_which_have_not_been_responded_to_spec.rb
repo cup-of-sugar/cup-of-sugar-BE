@@ -20,9 +20,9 @@ RSpec.describe Types::QueryType do
 
       result = CupOfSugarBeSchema.execute(query).as_json
 
-      postings = result["data"]["itemsUserLookingToBorrow"]
+      postings = result["data"]["itemsUserRequestedToBorrow"]
 
-      expect(postings.count).to eq(4)
+      expect(postings.count).to eq(3)
       expect(postings[0]["posting"]["title"]).to eq(posting.title)
       expect(postings[0]).to have_key("name")
       expect(postings[0]).to have_key("quantity")
@@ -32,13 +32,14 @@ RSpec.describe Types::QueryType do
       expect(postings[0]).to have_key("timeDuration")
       expect(postings[1]["posting"]["title"]).to eq(posting1.title)
       expect(postings[2]["posting"]["title"]).to eq(posting2.title)
+      expect(postings).not_to include(posting3)
     end
   end
 
   def query
     <<~GQL
     query {
-      itemsUserLookingToBorrow(userId: "#{@user.id}") {
+      itemsUserRequestedToBorrow(userId: "#{@user.id}") {
         name
         quantity
         available
@@ -47,6 +48,9 @@ RSpec.describe Types::QueryType do
         timeDuration
         posting {
           title
+        }
+        category {
+          name
         }
       }
     }
