@@ -15,6 +15,7 @@ RSpec.describe Types::QueryType do
       lawn.items.create(name: 'wheel barrow', quantity: 12.5, time_duration: 'hours', available: true, posting_id: posting.id)
       lawn.items.create(name: 'weed wacker', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting1.id)
       lawn.items.create(name: 'sprinkler', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting2.id)
+  
 
       result = CupOfSugarBeSchema.execute(query).as_json
 

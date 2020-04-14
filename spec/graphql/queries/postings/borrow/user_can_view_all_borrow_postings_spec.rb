@@ -14,6 +14,7 @@ RSpec.describe Types::QueryType do
       lawn.items.create(name: 'Sprinkler', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting1.id)
       lawn.items.create(name: 'Sprinkler', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting2.id)
 
+
       result = CupOfSugarBeSchema.execute(query).as_json
 
       postings = result["data"]["itemsUserLookingToBorrow"]
