@@ -46,7 +46,7 @@ module Types
     end
 
     def items_user_has_lent(user_id:)
-      ids = Posting.where.not(poster_id: user_id).where(responder_id: user_id).ids
+      ids = Posting.where(responder_id: user_id).ids
       Item.where(posting_id: ids)
     end
 
@@ -73,7 +73,7 @@ module Types
     end
 
     def items_user_has_borrowed(user_id:)
-      ids = Posting.where.not(poster_id: user_id).where(responder_id: user_id).ids
+      ids = Posting.where(responder_id: user_id).ids
       Item.where(posting_id: ids)
     end
   end
