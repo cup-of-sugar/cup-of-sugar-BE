@@ -12,6 +12,7 @@ RSpec.describe Types::QueryType do
       posting1 = Posting.create(posting_type: 0, title: "Looking to borrow weed wacker", poster_id: user1.id, responder_id: @user.id)
       posting2 = Posting.create(posting_type: 0, title: "Looking to borrow sprinkler", poster_id: user1.id, responder_id: @user.id)
       posting3 = Posting.create(posting_type: 0, title: "Looking to borrow my own sprinkler", poster_id: @user.id, responder_id: @user.id)
+      posting4 = Posting.create(posting_type: 1, title: "Looking to lend out my sprinkler", poster_id: @user.id)
 
       lawn.items.create(name: 'wheel barrow', quantity: 12.5, time_duration: 'hours', available: true, posting_id: posting.id)
       lawn.items.create(name: 'weed wacker', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting1.id)
@@ -35,6 +36,7 @@ RSpec.describe Types::QueryType do
       expect(postings[1]["posting"]["title"]).to eq(posting1.title)
       expect(postings[2]["posting"]["title"]).to eq(posting2.title)
       expect(postings).not_to include(posting3)
+      expect(postings).not_to include(posting4)
     end
   end
 
