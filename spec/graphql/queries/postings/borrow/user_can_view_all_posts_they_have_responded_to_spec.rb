@@ -11,7 +11,7 @@ RSpec.describe Types::QueryType do
       posting = Posting.create(posting_type: 1, title: "Looking to borrow wheel barrow", poster_id: user1.id, responder_id: @user.id)
       posting1 = Posting.create(posting_type: 1, title: "Looking to borrow weed wacker", poster_id: user1.id, responder_id: @user.id)
       posting2 = Posting.create(posting_type: 1, title: "Looking to borrow sprinkler", poster_id: user1.id, responder_id: @user.id)
-      posting3 = Posting.create(posting_type: 0, title: "Looking to borrow sprinkler", poster_id: @user.id, responder_id: @user.id)
+      posting3 = Posting.create(posting_type: 1, title: "Looking to borrow sprinkler", poster_id: @user.id, responder_id: @user.id)
 
       lawn.items.create(name: 'wheel barrow', quantity: 12.5, time_duration: 'hours', available: true, posting_id: posting.id)
       lawn.items.create(name: 'weed wacker', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting1.id)
@@ -21,7 +21,7 @@ RSpec.describe Types::QueryType do
       result = CupOfSugarBeSchema.execute(query).as_json
 
       postings = result["data"]["itemsUserHasBorrowed"]
-      
+
       expect(postings.count).to eq(3)
       expect(postings[0]["posting"]["title"]).to eq(posting.title)
       expect(postings[0]).to have_key("name")
