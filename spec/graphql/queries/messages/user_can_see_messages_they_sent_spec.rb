@@ -14,7 +14,7 @@ RSpec.describe Types::QueryType, type: :request do
 
       result = JSON.parse(response.body, symbolize_names: true)
 
-      message_result = result[:data][:userSentMessages]
+      message_result = result[:data][:userOutbox]
       expect(message_result[0][:title]).to eq(message.title)
       expect(message_result[0][:body]).to eq(message.body)
       expect(message_result[0][:recipient][:firstName]).to eq(user1.first_name)
