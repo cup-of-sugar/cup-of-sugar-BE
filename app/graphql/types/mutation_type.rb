@@ -3,5 +3,6 @@ module Types
     field :update_item_availability, mutation: Mutations::Items::UpdateItem
     field :create_posting, mutation: Mutations::Postings::CreatePosting
     field :user_login, mutation: Mutations::Users::UserLogin
+    field :send_message, mutation: Mutations::Messages::SendMessage
   end
 end

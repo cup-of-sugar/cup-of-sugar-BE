@@ -76,5 +76,27 @@ module Types
       ids = Posting.where(responder_id: user_id).ids
       Item.where(posting_id: ids)
     end
+
+    field :user_outbox, [Types::MessageType], null: false do
+      argument :user_id, ID, required: true
+    end
+
+    def user_outbox(user_id: )
+      messages = Message.where(sender_id: user_id)
+      recipient_ids = messages.pluck(:recipient_id)
+      User.where(id: recipient_ids)
+      messages
+    end
+
+    field :user_inbox, [Types::MessageType], null: false do
+      argument :user_id, ID, required: true
+    end
+
+    def user_inbox(user_id: )
+      messages = Message.where(recipient_id: user_id)
+      sender_ids = messages.pluck(:sender_id)
+      User.where(id: sender_ids)
+      messages
+    end
   end
 end
