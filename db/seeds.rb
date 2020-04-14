@@ -10,6 +10,7 @@ Category.destroy_all
 Item.destroy_all
 User.destroy_all
 Posting.destroy_all
+Message.destroy_all
 
 food = Category.create(name: 'Food')
 home = Category.create(name: 'Home Improvement')
@@ -20,14 +21,20 @@ other = Category.create(name: 'Other')
 
 user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 user1 = User.create(first_name: 'Joe', last_name: 'Exotic', email: 'joe4president@gmail.com', password: 'password', zip: 80206)
+user2 = User.create(first_name: 'Harry', last_name: 'Potter', email: 'theboywholived@gmail.com', password: 'expelliarmus', zip: 80203)
+user3 = User.create(first_name: 'Hermione', last_name: 'Granger', email: 'thecleverwitch@gmail.com', password: 'expelled', zip: 80202)
 
+message = Message.create(title: 'Borrowing your mop', body: 'Thanks for letting me borrow your mop. Can I come get it tomorrow?', sender_id: user.id, recipient_id: user3.id)
+message1 = Message.create(title: 'Borrowing your drill', body: 'Thanks for letting me borrow your drill!! Can you bring it over on Saturday?', sender_id: user1.id, recipient_id: user2.id)
+message2 = Message.create(title: 'Checking in', body: "You've marked that you want to borrow my trowel but haven't set up time for to pick it up. Are you still interested?", sender_id: user2.id, recipient_id: user3.id )
+message3 = Message.create(title: 'Picking up eggs', body: 'Thanks for giving me some eggs! So excited to make cookies', sender_id: user3.id, recipient_id: user.id)
 
-posting = Posting.create(posting_type: 0, title: "Seeking food supplies", poster_id: user.id)
-posting1 = Posting.create(posting_type: 0, title: "Seeking home improvement tools", poster_id: user.id)
-posting2 = Posting.create(posting_type: 0, title: "In need of home goods yo", poster_id: user.id)
+posting = Posting.create(posting_type: 0, title: "Seeking food supplies", poster_id: user.id, responder_id: user2.id)
+posting1 = Posting.create(posting_type: 0, title: "Seeking home improvement tools", poster_id: user2.id)
+posting2 = Posting.create(posting_type: 0, title: "In need of home goods yo", poster_id: user3.id)
 
-posting3 = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user1.id)
-posting4 = Posting.create(posting_type: 1, title: "Lending some food supplies", poster_id: user1.id)
+posting3 = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user2.id, responder_id: user3.id)
+posting4 = Posting.create(posting_type: 1, title: "Lending some food supplies", poster_id: user1.id, responder_id: user.id)
 
 food.items.create(name: 'chips', quantity: 1, measurement: 'bag', available: true, returnable: false, posting_id: posting1.id, description: "Looking for ruffles, but will settle for cheetos.")
 food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: true, returnable: false, posting_id: posting.id, description: "I need cheese." )
