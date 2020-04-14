@@ -41,7 +41,7 @@ module Types
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_lent, [Types::ItemType], null: false, description: "Returns all lend postings where lender is responder" do
+    field :items_user_has_lent, [Types::ItemType], null: false, description: "Returns all lend postings where lender is respondering to borrow request" do
       argument :user_id, ID, required: true
     end
 
@@ -59,12 +59,14 @@ module Types
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all lend postings where borrow is responder" do
+    ## we want a field where borrow postings where lender has not responded to request
+
+    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all borrow postings where borrowerer has responded to lender" do
       argument :user_id, ID, required: true
     end
 
     def items_user_has_borrowed(user_id:)
-      ids = Posting.where(responder_id: user_id).ids
+      ids = Posting.where.not(poster_id: user_id).where(responder_id: user_id).ids
       Item.where(posting_id: ids)
     end
   end
