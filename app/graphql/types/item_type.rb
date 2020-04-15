@@ -10,6 +10,7 @@ module Types
     field :returnable, Boolean, null: false
     field :category, Types::CategoryType, null: false
     field :returnable, Boolean, null: false
+    field :posting_id, ID, null: false
 
     field :posting, Types::PostingType, null: true
   end
