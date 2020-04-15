@@ -4,7 +4,6 @@ module AuthToken
   PREFIX = 'user-id'.freeze
 
   def token_for_user(user)
-    require "pry"; binding.pry
     crypt.encrypt_and_sign("#{PREFIX}#{user.id}")
   end
 
