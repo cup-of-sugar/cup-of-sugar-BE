@@ -67,6 +67,7 @@ RSpec.describe Types::QueryType do
         measurement
         description
         available
+        postingId
       }
     }
     GQL
@@ -82,6 +83,7 @@ RSpec.describe Types::QueryType do
         measurement
         description
         available
+        postingId
       }
     }
     GQL

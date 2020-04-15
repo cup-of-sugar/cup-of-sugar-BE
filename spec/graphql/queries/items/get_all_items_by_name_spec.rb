@@ -50,6 +50,7 @@ RSpec.describe Types::QueryType do
     <<~GQL
     query {
       getAllItemsByName(itemName: "Ralph") {
+        postingId
         name
         quantity
         timeDuration
@@ -63,6 +64,7 @@ RSpec.describe Types::QueryType do
     <<~GQL
     query {
       getAllItemsByName(itemName: "Mower") {
+        postingId
         name
         quantity
         timeDuration
