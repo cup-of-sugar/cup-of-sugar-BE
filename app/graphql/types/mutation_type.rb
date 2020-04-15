@@ -4,6 +4,6 @@ module Types
     field :create_posting, mutation: Mutations::Postings::CreatePosting
     field :user_login, mutation: Mutations::Users::UserLogin
     field :send_message, mutation: Mutations::Messages::SendMessage
-    field :delete_posting, mutation: Mutations::Postings::DeletePostingg
+    field :delete_posting, mutation: Mutations::Postings::DeletePosting
   end
 end
