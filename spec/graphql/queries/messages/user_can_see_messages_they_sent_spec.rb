@@ -3,15 +3,16 @@ require 'rails_helper'
 RSpec.describe Types::QueryType, type: :request do
   describe 'user can see messages' do
     it 'they sent to other users' do
-      @user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigerss.com', password: 'password', zip: 80206)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigerss.com', password: 'password', zip: 80206)
       user1 = User.create(first_name: 'Joe', last_name: 'Exotic', email: 'joe4presidents@gmail.com', password: 'password', zip: 80206)
 
-      message = Message.create(title: "Borrowing your drill", body: "Thanks so much for letting me borrow your drill. Can I pick it up on Saturday?", sender_id: @user.id, recipient_id: user1.id)
-      message1 = Message.create(title: "Borrowing your mop", body: "Thanks so much for letting me borrow your mop. Can I pick it up on Saturday?", sender_id: @user.id, recipient_id: user1.id)
-      message2 = Message.create(title: "Borrowing your mop", body: "Thanks so much for letting me borrow your mop. Can I pick it up on Saturday?", sender_id: user1.id, recipient_id: @user.id)
+      message = Message.create(title: "Borrowing your drill", body: "Thanks so much for letting me borrow your drill. Can I pick it up on Saturday?", sender_id: user.id, recipient_id: user1.id)
+      message1 = Message.create(title: "Borrowing your mop", body: "Thanks so much for letting me borrow your mop. Can I pick it up on Saturday?", sender_id: user.id, recipient_id: user1.id)
+      message2 = Message.create(title: "Borrowing your mop", body: "Thanks so much for letting me borrow your mop. Can I pick it up on Saturday?", sender_id: user1.id, recipient_id: user.id)
 
-      post "/graphql", params: { query: query }
+      token = token_for_user(user)
 
+      post "/graphql", params: { query: query }, headers: { 'Authorization' => token }
       result = JSON.parse(response.body, symbolize_names: true)
 
       message_result = result[:data][:userOutbox]
@@ -32,7 +33,7 @@ RSpec.describe Types::QueryType, type: :request do
   def query
     <<~GQL
       query {
-        userOutbox(userId: #{@user.id}) {
+        userOutbox {
           title
           body
           recipient {
