@@ -18,11 +18,9 @@ class User < ApplicationRecord
   has_secure_password
 
   def self.verify_login(params)
-    user = User.find_by(email: params[:email])
-    if user
-      user.authenticate(params[:password])
-    else
-      false
-    end
+    user = User.find_by(email: params[:credentials][:email])
+    return unless user
+    
+    user.authenticate(params[:credentials][:password])
   end
 end

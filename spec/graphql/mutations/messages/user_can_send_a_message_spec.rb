@@ -27,7 +27,7 @@ module Mutations
               title: "Borrowing your drill"
               body: "Thanks so much for letting me borrow your drill. Can I pick it up on Saturday?"
               userId: "#{@user.id}"
-              recipientId: "#{@user1.id}"
+              recipientEmail: "#{@user1.email}"
             }
           )
           {

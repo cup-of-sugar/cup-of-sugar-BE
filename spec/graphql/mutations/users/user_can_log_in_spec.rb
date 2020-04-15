@@ -8,10 +8,11 @@ module Mutations
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
           post "/graphql", params: { query: query }
+
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:data][:user][:email]).to eq("carole@tigers.com")
-          expect(result[:data][:user][:id]).to eq(user.id.to_s)
+          expect(result[:data][:user][:token].length).to eq(72)
+          expect(result[:data][:user][:user][:id]).to eq(user.id.to_s)
           expect(result[:data][:user].count).to eq(2)
         end
       end
@@ -21,15 +22,19 @@ module Mutations
         mutation {
           user: userLogin(
             input: {
-              email: "carole@tigers.com"
-              password: "password"
+               credentials: {
+                email: "carole@tigers.com"
+                password: "password"
+              }
             }
           )
           {
-            id
-            email
+            token
+              user {
+                id
+              }
+            }
           }
-        }
         GQL
       end
 
@@ -39,8 +44,7 @@ module Mutations
 
           post "/graphql", params: { query: query1 }
           result = JSON.parse(response.body, symbolize_names: true)
-
-          expect(result[:data][:user][:email]).to eq(nil)
+          expect(result[:data][:user]).to eq(nil)
         end
       end
 
@@ -49,14 +53,19 @@ module Mutations
         mutation {
           user: userLogin(
             input: {
-              email: "carole@tigers.com"
-              password: "pass"
+               credentials: {
+                email: "carole@tigers.com"
+                password: "passwd"
+              }
             }
           )
           {
-            email
+            token
+              user {
+                id
+              }
+            }
           }
-        }
         GQL
       end
 
@@ -67,7 +76,7 @@ module Mutations
           post "/graphql", params: { query: query2 }
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:data][:user][:email]).to eq(nil)
+          expect(result[:data][:user]).to eq(nil)
         end
       end
 
@@ -76,14 +85,19 @@ module Mutations
         mutation {
           user: userLogin(
             input: {
-              email: "carole@tigers"
-              password: "password"
+               credentials: {
+                email: "carole@tigers"
+                password: "password"
+              }
             }
           )
           {
-            email
+            token
+              user {
+                id
+              }
+            }
           }
-        }
         GQL
       end
 
@@ -94,7 +108,7 @@ module Mutations
           post "/graphql", params: { query: query3 }
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:data][:user][:email]).to eq(nil)
+          expect(result[:data][:user]).to eq(nil)
         end
       end
 
@@ -103,14 +117,19 @@ module Mutations
         mutation {
           user: userLogin(
             input: {
-              email: "carole@tigers"
-              password: "pass"
+               credentials: {
+                email: "carole@tigers"
+                password: "password"
+              }
             }
           )
           {
-            email
+            token
+              user {
+                id
+              }
+            }
           }
-        }
         GQL
       end
     end
