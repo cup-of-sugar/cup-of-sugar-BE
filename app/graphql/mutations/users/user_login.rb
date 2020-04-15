@@ -1,19 +1,20 @@
 module Mutations
   module Users
     class UserLogin < ::Mutations::BaseMutation
-      argument :email, String, required: true
-      argument :password, String, required: true
+      null true
 
-      field :email, String, null: true
-      field :id, ID, null: false
+      argument :credentials, Types::AuthProviderCredentialsInput, required: false
+
+      field :user, Types::UserType, null: true
+      field :token, String, null: true
 
       def resolve(params)
         user = User.verify_login(params)
-        if user == false
-          { "email"=> nil }
-        else
-          user
-        end
+        return unless user
+
+        token = AuthToken.token_for_user(user)
+
+        { user: user, token: token }
       end
     end
   end
