@@ -68,12 +68,19 @@ module Types
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all borrow postings where lender has responded to borrower" do
+    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all borrow postings for a user where lender has responded to their borrow posting" do
       argument :user_id, ID, required: true
     end
 
     def items_user_has_borrowed(user_id:)
       ids = Posting.where(responder_id: user_id).ids
+      Item.where(posting_id: ids)
+    end
+
+    field :get_all_open_borrow_requests, [Types::ItemType], null: false, description: "Returns all borrow postings which have not yet been responded to by a lender"
+
+    def get_all_open_borrow_requests
+      ids = Posting.where(responder_id: nil, posting_type: "borrow").ids
       Item.where(posting_id: ids)
     end
 
