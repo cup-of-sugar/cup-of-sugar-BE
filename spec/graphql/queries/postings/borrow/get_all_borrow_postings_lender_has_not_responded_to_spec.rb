@@ -49,6 +49,7 @@ RSpec.describe Types::QueryType do
         measurement
         timeDuration
         posting {
+          id
           title
         }
       }

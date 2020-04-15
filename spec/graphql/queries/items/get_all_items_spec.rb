@@ -25,7 +25,7 @@ RSpec.describe Types::QueryType do
       expect(items[0]["category"]["name"]).to eq("Cats")
       expect(items[1]["description"]).to eq("this cat is the worst but I love him.")
       expect(items[1]["timeDuration"]).to eq("days")
-    end 
+    end
   end
 
   def query
@@ -38,6 +38,7 @@ RSpec.describe Types::QueryType do
         description
         measurement
         timeDuration
+        postingId
         category {
           name
         }
