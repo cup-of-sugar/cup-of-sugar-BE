@@ -4,6 +4,7 @@ module AuthToken
   PREFIX = 'user-id'.freeze
 
   def token_for_user(user)
+    require "pry"; binding.pry
     crypt.encrypt_and_sign("#{PREFIX}#{user.id}")
   end
 
@@ -18,7 +19,7 @@ module AuthToken
 
   def crypt
     ActiveSupport::MessageEncryptor.new(
-      Rails.application.secrets.secret_key_base.byteslice(0..31)
+      ENV['SECRET_KEY']
     )
   end
 end
