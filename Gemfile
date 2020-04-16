@@ -28,6 +28,7 @@ gem 'figaro'
 gem 'graphql'
 gem 'search_object_graphql'
 gem 'sprockets', '~> 3'
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
