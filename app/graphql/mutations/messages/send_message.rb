@@ -3,7 +3,7 @@ module Mutations
     class SendMessage < ::Mutations::BaseMutation
       argument :title, String, required: true
       argument :body, String, required: true
-      argument :recipientEmail, ID, required: true
+      argument :recipientEmail, String, required: true
 
       field :id, ID, null: false
       field :title, String, null: false

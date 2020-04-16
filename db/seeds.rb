@@ -37,7 +37,7 @@ posting3 = Posting.create(posting_type: 1, title: "Lending spare items from my g
 posting4 = Posting.create(posting_type: 1, title: "Lending some food supplies", poster_id: user1.id, responder_id: user.id)
 
 food.items.create(name: 'chips', quantity: 1, measurement: 'bag', available: true, returnable: false, posting_id: posting1.id, description: "Looking for ruffles, but will settle for cheetos.")
-food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: true, returnable: false, posting_id: posting.id, description: "I need cheese." )
+food.items.create(name: 'cheese', quantity: 4, measurement: "cups", available: false, returnable: false, posting_id: posting.id, description: "I need cheese." )
 
 food.items.create(name: 'eggs', quantity: 1, measurement: 'dozen', available: true, returnable: false, posting_id: posting4.id, description: "May I offer you a nice egg in this this trying time?")
 food.items.create(name: 'butter', quantity: 8, measurement: "oz", available: true, returnable: false, posting_id: posting4.id, description: "I can't believe it's butter. I'm a vegan." )
