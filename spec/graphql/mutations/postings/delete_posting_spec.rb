@@ -16,7 +16,8 @@ module Mutations
           expect(postings.count).to eq(1)
           expect(items.count).to eq(1)
 
-          post "/graphql", params: { query: query }
+          token = token_for_user(user)
+          post "/graphql", params: { query: query }, headers: { 'Authorization' => token }
 
           result = JSON.parse(response.body, symbolize_names: true)
 
@@ -55,7 +56,8 @@ module Mutations
 
           expect(postings.count).to eq(1)
 
-          post "/graphql", params: { query: query1 }
+          token = token_for_user(user)
+          post "/graphql", params: { query: query1 }, headers: { 'Authorization' => token }
 
           result = JSON.parse(response.body, symbolize_names: true)
 

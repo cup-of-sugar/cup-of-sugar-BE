@@ -7,7 +7,7 @@ module Mutations
         it 'when credentials are correct' do
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
-          post "/graphql", params: { query: query }
+          post "/graphql", params: { query: query}, headers: { 'Authorization' => ""}
 
           result = JSON.parse(response.body, symbolize_names: true)
 
@@ -42,7 +42,7 @@ module Mutations
         it 'when password credentials are incorrect' do
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
-          post "/graphql", params: { query: query1 }
+          post "/graphql", params: { query: query1 }, headers: { 'Authorization' => ""}
           result = JSON.parse(response.body, symbolize_names: true)
           expect(result[:data][:user]).to eq(nil)
         end
@@ -73,7 +73,7 @@ module Mutations
         it 'when email credentials are incorrect' do
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
-          post "/graphql", params: { query: query2 }
+          post "/graphql", params: { query: query2 }, headers: { 'Authorization' => ""}
           result = JSON.parse(response.body, symbolize_names: true)
 
           expect(result[:data][:user]).to eq(nil)
@@ -105,7 +105,7 @@ module Mutations
         it 'when email credentials are incorrect' do
           user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
-          post "/graphql", params: { query: query3 }
+          post "/graphql", params: { query: query3 }, headers: { 'Authorization' => ""}
           result = JSON.parse(response.body, symbolize_names: true)
 
           expect(result[:data][:user]).to eq(nil)
