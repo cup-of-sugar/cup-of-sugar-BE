@@ -9,7 +9,6 @@ module Mutations
       argument :time_duration, String, required: false
       argument :quantity, String, required: true
       argument :measurement, String, required: false
-      argument :user_id, ID, required: true
 
       field :posting_type, String, null: false
       field :category_name, String, null: false
@@ -21,7 +20,7 @@ module Mutations
 
 
       def resolve(params)
-        posting = Posting.create(posting_type: params[:posting_type], title: params[:title], poster_id: params[:user_id])
+        posting = Posting.create(posting_type: params[:posting_type], title: params[:title], poster_id: context[:current_user].id)
         create_item(params, posting.id)
       end
 

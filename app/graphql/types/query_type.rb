@@ -32,48 +32,44 @@ module Types
       Item.where(name: item_name).where(posting_id: posting_ids)
     end
 
-    field :items_user_offered_to_lend, [Types::ItemType], null: false, description: "Returns all lend postings associated with a user" do
-      argument :user_id, ID, required: true
-    end
+    field :items_user_offered_to_lend, [Types::ItemType], null: false,
+      description: "Returns all lend postings associated with a user"
 
-    def items_user_offered_to_lend(user_id:)
-      ids = Posting.where(poster_id: user_id).ids
+    def items_user_offered_to_lend
+      ids = Posting.where(poster_id: context[:current_user].id).ids
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_lent, [Types::ItemType], null: false, description: "Returns all lend postings where lender has responded to borrow request" do
-      argument :user_id, ID, required: true
-    end
+    field :items_user_has_lent, [Types::ItemType], null: false,
+      description: "Returns all lend postings where lender has responded to borrow request"
 
-    def items_user_has_lent(user_id:)
-      ids = Posting.where(responder_id: user_id).ids
+    def items_user_has_lent
+      ids = Posting.where(responder_id: context[:current_user].id).ids
       Item.where(posting_id: ids)
     end
 
-    field :items_user_looking_to_borrow, [Types::ItemType], null: false, description: "Returns all borrow postings associated with a user" do
-      argument :user_id, ID, required: true
-    end
+    field :items_user_looking_to_borrow, [Types::ItemType], null: false,
+      description: "Returns all borrow postings associated with a user"
 
-    def items_user_looking_to_borrow(user_id:)
-      ids = Posting.where(poster_id: user_id).ids
+    def items_user_looking_to_borrow
+      ids = Posting.where(poster_id: context[:current_user].id).ids
       Item.where(posting_id: ids)
     end
 
-    field :items_user_requested_to_borrow, [Types::ItemType], null: false, description: "Returns all borrow postings where lender has not responded to borrow posting" do
-      argument :user_id, ID, required: true
-    end
+    field :items_user_requested_to_borrow, [Types::ItemType], null: false,
+      description: "Returns all borrow postings where lender has not responded to borrow posting"
 
-    def items_user_requested_to_borrow(user_id:)
-      ids = Posting.where(responder_id: nil).where(poster_id: user_id).ids
+
+    def items_user_requested_to_borrow
+      ids = Posting.where(responder_id: nil).where(poster_id: context[:current_user].id).ids
       Item.where(posting_id: ids)
     end
 
-    field :items_user_has_borrowed, [Types::ItemType], null: false, description: "Returns all borrow postings for a user where lender has responded to their borrow posting" do
-      argument :user_id, ID, required: true
-    end
+    field :items_user_has_borrowed, [Types::ItemType], null: false,
+      description: "Returns all borrow postings for a user where lender has responded to their borrow posting"
 
-    def items_user_has_borrowed(user_id:)
-      ids = Posting.where(responder_id: user_id).ids
+    def items_user_has_borrowed
+      ids = Posting.where(responder_id: context[:current_user].id).ids
       Item.where(posting_id: ids)
     end
 
@@ -84,23 +80,19 @@ module Types
       Item.where(posting_id: ids)
     end
 
-    field :user_outbox, [Types::MessageType], null: false do
-      argument :user_id, ID, required: true
-    end
+    field :user_outbox, [Types::MessageType], null: false
 
-    def user_outbox(user_id: )
-      messages = Message.where(sender_id: user_id)
+    def user_outbox
+      messages = Message.where(sender_id: context[:current_user].id)
       recipient_ids = messages.pluck(:recipient_id)
       User.where(id: recipient_ids)
       messages
     end
 
-    field :user_inbox, [Types::MessageType], null: false do
-      argument :user_id, ID, required: true
-    end
+    field :user_inbox, [Types::MessageType], null: false
 
-    def user_inbox(user_id: )
-      messages = Message.where(recipient_id: user_id)
+    def user_inbox
+      messages = Message.where(recipient_id: context[:current_user].id)
       sender_ids = messages.pluck(:sender_id)
       User.where(id: sender_ids)
       messages

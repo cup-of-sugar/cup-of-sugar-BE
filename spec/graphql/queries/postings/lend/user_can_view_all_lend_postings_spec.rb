@@ -1,21 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe Types::QueryType do
+RSpec.describe Types::QueryType, type: :request do
   describe 'display postings' do
     it 'user can query all their lend postings' do
+
       lawn = Category.create(name: 'Lawn Care')
-      @user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
+      user = User.create(first_name: 'Carole', last_name: 'Baskin', email: 'carole@tigers.com', password: 'password', zip: 80206)
 
-      posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: @user.id)
-      posting1 = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: @user.id)
-      posting2 = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: @user.id)
-
+      posting = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user.id)
+      posting1 = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user.id)
+      posting2 = Posting.create(posting_type: 1, title: "Lending spare items from my garage", poster_id: user.id)
       lawn.items.create(name: 'Mower', quantity: 12.5, time_duration: 'hours', available: true, posting_id: posting.id)
       lawn.items.create(name: 'Sprinkler', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting1.id)
       lawn.items.create(name: 'Sprinkler', quantity: 2.0, time_duration: 'days', available: true, posting_id: posting2.id)
+      token = token_for_user(user)
 
-      result = CupOfSugarBeSchema.execute(query).as_json
+      post "/graphql", params: { query: query }, headers: { 'Authorization' => token }
 
+      result = JSON.parse(response.body)
       postings = result["data"]["itemsUserOfferedToLend"]
 
       expect(postings.count).to eq(3)
@@ -34,7 +36,7 @@ RSpec.describe Types::QueryType do
   def query
     <<~GQL
     query {
-      itemsUserOfferedToLend(userId: "#{@user.id}") {
+      itemsUserOfferedToLend {
         name
         quantity
         available
