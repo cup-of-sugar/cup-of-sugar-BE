@@ -1,24 +1,45 @@
 # Cup of Sugar (Back End)
-## Contributors: Carleigh Crockett & Lain McGrath
+## Contributors: 
+- Carleigh Crockett ([GitHub](https://github.com/Capleugh), [LinkedIn](https://www.linkedin.com/in/carleighcrockett/)) 
+- Lain McGrath ([GitHub](https://github.com/LainMcGrath), [LinkedIn](https://www.linkedin.com/in/lain-mcgrath-8199a09a/)
 
 ## About
 Cup of Sugar is an app that allows neighbors to communicate about items they have to lend or would like to borrow. Users can choose to login as a Lender or Borrower. As a Borrower, neighbors can post item requests for items they need or browse available items. As a Lender, neighbors can post items they have to lend or browse item requests in their neighborhood.
 
 ## Technologies Used
-- Rails
-- Graphql
-- Postgres
+- Ruby on Rails
+- GraphQL
+- PostgreSQL
+
+## Access Locally
+- Clone this repository by running the following command:
+`git clone git@github.com:cup-of-sugar/cup-of-sugar-BE.git` 
+- Run `$ bundle install`
+- Run `$ rails db:setup`
+- Run `rails s` and navigate to `http://localhost:3000/graphiql` to run queries and mutations in local development.
+
+## Access Deployed Application
+Due to the nature of GraphQL, in order to access these endpoints, you will need to download ([Postman] (https://www.postman.com/)), select `POST` as your method, https://fierce-tundra-54482.herokuapp.com/graphql as your path, click on `body` in the section below, then click the GraphQL radio button in the section beneath that. You can now run any query below in the query section by clicking `send` above to see the response.
 
 ### Models and Types
 
-Each type corresponds to a model. Each type has a select amount of attributes that are allowed as argument and return fields. You must update the type if you wish to add additional arguments or values returned. Please note that both the postings and messages tables are self-referencing.
+Each type corresponds to a model. Each type has a select amount of attributes that are allowed as argument and return fields. You must update the type if you wish to add additional arguments or values returned.
 
-Category
-Item
-User
-Posting
-Message
+### Schema
+#### Categories
+This table consists only of a name and rendered as a drop down menu on the front end
+#### Items
+This table has attributes which are conditionally rendered depending upon which category they belong to. Items are created on postings and are dependently destroyed when a posting that has not been responded to is deleted.
+#### Users
+This table consists of a first name, last name, zip, email, and password_digest
+#### Postings
+This table consists of a title and a posting_type which is an enum that can represents the tpye pf post (either "borrow" or "lend"). It is also a self-referential joins table for users represented by a poster_id and responder_id
+#### Messages
+This table consists of a title and body. It is also a self-referential joins table for users represented by a sender_id and a recipient_id
 
+![cup of sugar schema](https://user-images.githubusercontent.com/47065120/79540528-8f177780-8045-11ea-910a-686e4a369e1d.png)
+
+## Endpoints 
 ### Queries 
 #### Categories 
 Returns all categories:
@@ -310,7 +331,7 @@ mutation {
       postingType: "lend"
       categoryName: "#{@gardening.name}"
       name: "trowel"
-      description: "What are even?"
+      description: "What is a trowel? Why does it exist?"
       quantity: "4.0"
       timeDuration: "days"
     }
@@ -355,4 +376,4 @@ mutation {
 ```
 
 #### Authorization and headers
-In order to access and endoints, a user must first successfuly log in. Once a user's credentials are confirmed, a token is returned to the frontend. This token must be included as an `authorization` header. Additionally after credentials are confirmed, the backend has global access to the current user by using `context[:current_user]` in all mutations and queries. 
+In order to access any endpoint, a user must first successfully log in. Once a user's credentials are confirmed, a token is returned to the frontend. This token must be included as an `authorization` header. Additionally after credentials are confirmed, the backend has global access to the current user by using `context[:current_user]` in all mutations and queries. 
