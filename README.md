@@ -1,7 +1,7 @@
 # Cup of Sugar (Back End)
-## Contributors: 
-- Carleigh Crockett ([GitHub](https://github.com/Capleugh), [LinkedIn](https://www.linkedin.com/in/carleighcrockett/)) 
-- Lain McGrath ([GitHub](https://github.com/LainMcGrath), [LinkedIn](https://www.linkedin.com/in/lain-mcgrath-8199a09a/)
+## Contributors
+- Carleigh Crockett [GitHub](https://github.com/Capleugh), [LinkedIn](https://www.linkedin.com/in/carleighcrockett/)
+- Lain McGrath [GitHub](https://github.com/LainMcGrath), [LinkedIn](https://www.linkedin.com/in/lain-mcgrath-8199a09a/)
 
 ## About
 Cup of Sugar is an app that allows neighbors to communicate about items they have to lend or would like to borrow. Users can choose to login as a Lender or Borrower. As a Borrower, neighbors can post item requests for items they need or browse available items. As a Lender, neighbors can post items they have to lend or browse item requests in their neighborhood.
@@ -19,7 +19,7 @@ Cup of Sugar is an app that allows neighbors to communicate about items they hav
 - Run `rails s` and navigate to `http://localhost:3000/graphiql` to run queries and mutations in local development.
 
 ## Access Deployed Application
-Due to the nature of GraphQL, in order to access these endpoints, you will need to download ([Postman] (https://www.postman.com/)), select `POST` as your method, https://fierce-tundra-54482.herokuapp.com/graphql as your path, click on `body` in the section below, then click the GraphQL radio button in the section beneath that. You can now run any query below in the query section by clicking `send` above to see the response.
+Due to the nature of GraphQL, in order to access these endpoints, you will need to download [Postman](https://www.postman.com/), select `POST` as your method, https://fierce-tundra-54482.herokuapp.com/graphql as your path, click on `body` in the section below, then click the GraphQL radio button in the section beneath that. You can now run any query below in the query section by clicking `send` above to see the response.
 
 ### Models and Types
 
