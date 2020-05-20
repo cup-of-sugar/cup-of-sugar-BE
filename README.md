@@ -4,19 +4,22 @@
 - Lain McGrath [GitHub](https://github.com/LainMcGrath), [LinkedIn](https://www.linkedin.com/in/lain-mcgrath-8199a09a/)
 
 ## About
-Cup of Sugar is an app that allows neighbors to communicate about items they have to lend or would like to borrow. Users can choose to login as a Lender or Borrower. As a Borrower, neighbors can post item requests for items they need or browse available items. As a Lender, neighbors can post items they have to lend or browse item requests in their neighborhood. You can access the front end repository [here](https://github.com/cup-of-sugar/cup-of-sugar-FE).
+Cup of Sugar is an app that allows neighbors to communicate about items they have to lend or would like to borrow. Users may select a lend or borrow role upon logging in. As a Borrower, neighbors can post item requests for items they need or browse available items. As a Lender, neighbors can post items they have to lend or browse item requests in their neighborhood. You can access the front end repository [here](https://github.com/cup-of-sugar/cup-of-sugar-FE).
 
-## Technologies Used
-- Ruby on Rails
-- GraphQL
-- PostgreSQL
+## Technologies
+- Ruby 5.2.1
+- Rails 6.0.2.2
+- GraphQL-Ruby 
+- Database: PostgreSQL
+- Hosting: Heroku 
+- Continuous Integration: Travis CI
 
 ## Access Locally
 - Clone this repository by running the following command in your terminal:
 `git clone git@github.com:cup-of-sugar/cup-of-sugar-BE.git` 
 - Run `$ bundle install`
 - Run `$ rails db:setup`
-- Run `rails s` and navigate to `http://localhost:3000/graphiql` to run queries and mutations in local development.
+- Run `rails s` and navigate to `http://localhost:3000/graphiql` to run queries and mutations in local development
 
 ## Access Deployed Application
 Due to the nature of GraphQL, in order to access these endpoints, you will need to download [Postman](https://www.postman.com/), select `POST` as your method, https://fierce-tundra-54482.herokuapp.com/graphql as your path, click on `body` in the section below, then click the GraphQL radio button in the section beneath that. You can now run any query below in the query section by clicking `send` above to see the response.
