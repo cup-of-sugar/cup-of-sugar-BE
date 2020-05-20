@@ -8,7 +8,7 @@ Cup of Sugar is an app that allows neighbors to communicate about items they hav
 
 ## Access Locally
 - Clone this repository by running the following command in your terminal:
-`git clone git@github.com:cup-of-sugar/cup-of-sugar-BE.git` 
+`git clone git@github.com:cup-of-sugar/cup-of-sugar-BE.git` and `cd` into `cup-of-sugar-BE`
 - If you do not have bundler installed on your machine, run `gem install bundler`
 - Run `bundle install`
 - Run `rails db:setup`
