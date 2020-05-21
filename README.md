@@ -15,7 +15,7 @@ Cup of Sugar is an app that allows neighbors to communicate about items they hav
 - Run `rails s` and navigate to `http://localhost:3000/graphiql` to run queries and mutations in local development
 
 ## Access Deployed Application
-Due to the nature of GraphQL, in order to access these endpoints, you will need to download [Postman](https://www.postman.com/), select `POST` as your method, https://fierce-tundra-54482.herokuapp.com/graphql as your path, click on `body` in the section below, then click the GraphQL radio button in the section beneath that. You can now run any query below in the query section by clicking `send` above to see the response.
+Given the nature of GraphQL, in order to access these endpoints, you will need to download [Postman](https://www.postman.com/), select `POST` as your method, https://fierce-tundra-54482.herokuapp.com/graphql as your path, click on `body` in the section below, then click the GraphQL radio button in the section beneath that. You can now run any query below in the query section by clicking `send` above to see the response.
 
 ## Models and Types
 
