@@ -23,7 +23,7 @@ module Types
       Category.find_by(name: name).items
     end
 
-    field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all category items" do
+    field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all items by name" do
       argument :item_name, String, required: true
     end
 
