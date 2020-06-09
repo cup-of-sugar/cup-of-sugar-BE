@@ -59,7 +59,6 @@ module Types
     field :items_user_requested_to_borrow, [Types::ItemType], null: false,
       description: "Returns all borrow postings where lender has not responded to borrow posting"
 
-
     def items_user_requested_to_borrow
       ids = Posting.where(responder_id: nil).where(poster_id: context[:current_user].id).ids
       Item.where(posting_id: ids)
