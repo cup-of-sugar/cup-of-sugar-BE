@@ -41,14 +41,21 @@ module Mutations
           item
         end
 
-        def update_item_in_other_category(item, params)
-          item.update(time_duration: params[:time_duration])
-        end
-
+        # when creating an item in the "food" category, "measurement" will
+        # appear as a selection on the form and the user will not have an
+        # option to return it
         def update_item_in_food_category(item, params)
           item.update(returnable: false, measurement: params[:measurement])
         end
 
+        # when creating an item in any other type of category, "time duration"
+        # will appear as a selection on the form and the user will have the
+        # option to return it
+        def update_item_in_other_category(item, params)
+          item.update(time_duration: params[:time_duration])
+        end
+
+        # this ensures that a user cannot borrow their own item 
         def update_borrowed_item_availability(item)
           if item.posting.posting_type == "borrow"
             item.update(available: false)
