@@ -23,7 +23,7 @@ module Types
       Category.find_by(name: name).items
     end
 
-    field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all category items" do
+    field :get_all_items_by_name, [Types::ItemType], null: false, description: "Returns all items by name" do
       argument :item_name, String, required: true
     end
 
@@ -58,7 +58,6 @@ module Types
 
     field :items_user_requested_to_borrow, [Types::ItemType], null: false,
       description: "Returns all borrow postings where lender has not responded to borrow posting"
-
 
     def items_user_requested_to_borrow
       ids = Posting.where(responder_id: nil).where(poster_id: context[:current_user].id).ids
