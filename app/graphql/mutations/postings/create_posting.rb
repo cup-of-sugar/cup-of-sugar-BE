@@ -55,7 +55,7 @@ module Mutations
           item.update(time_duration: params[:time_duration])
         end
 
-        # this ensures that a user cannot borrow their own item 
+        # this ensures that a user cannot borrow their own item
         def update_borrowed_item_availability(item)
           if item.posting.posting_type == "borrow"
             item.update(available: false)
